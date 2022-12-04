@@ -1,0 +1,19 @@
+module BTP_dmem(
+  input clk,
+  input e,
+  input we,
+  input [3:0] addr,
+  input [7:0] datain,
+  output [7:0] dataout
+);
+  
+  reg [7:0] mem [255:0];
+  
+  always@(posedge clk) begin
+    if (e == 1 && we == 1)
+      mem[addr] <= datain;
+  end
+  
+  assign dataout = (e == 1)?mem[addr]:0;
+  
+endmodule
